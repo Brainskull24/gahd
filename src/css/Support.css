@@ -1,0 +1,29 @@
+.emails-main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+.emails-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: max-content;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.emails-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: max-content;
+    border: 1px solid;
+    border-radius: 5px;
+}

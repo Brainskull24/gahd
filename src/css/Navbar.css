@@ -1,0 +1,72 @@
+body{
+    background-color: #FEF0DC;
+}
+
+.navbar-main{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    background-color: #FEF0DC;
+    justify-content: space-between;
+}
+
+.nav-logo{
+    display: flex;
+    width: 9rem;
+    height: 4rem;
+    border-radius: 4px;
+    align-items: center;
+    justify-content: center;
+    background-color: #D9D9D9;
+}
+
+.nav-itemss{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 2rem;
+    justify-content: space-evenly;
+    margin: auto 0px;
+}
+
+.nav-fontss{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-evenly;
+    color: black;
+}
+
+.nav-btns{
+    display: flex;
+    flex-direction: row;
+    height: 3rem;
+    width: 6rem;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #FEF0DC;
+    color: black;
+}
+
+.dropdown-menu{
+    background-color:#FEF0DC;
+    width: 14rem;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown button,.dropdown button:hover{
+    background-color: #FEF0DC;
+    color: black;
+}
+

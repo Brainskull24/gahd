@@ -1,0 +1,121 @@
+.dash-main{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    justify-content: space-between;
+}
+
+.dashboard-main{
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px;
+}
+
+.head{
+    display: flex;
+    flex-direction: row;
+    width: 78vw;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #A95F44;
+    height: 2.5rem;
+    font-weight: bolder;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+.cards1{
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.cardd{
+    background-color: #FEF0DC;
+    border: 1px solid;
+    width: 20rem;
+    height: 10rem;
+    flex-grow: 1;
+    flex-shrink:1;
+}
+
+.cardTitle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.BestSellers{
+    height: 20rem;
+}
+
+.recent-orders{
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.recent-table{
+    display: flex;
+    flex-direction: row;
+    height: 3rem;
+    font-weight: bolder;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 10px;
+    border-bottom: 1px solid ;
+}
+
+.orders-table{
+    background-color: #FEF0DC;
+}
+.orders-table thead tr{
+    background-color: #FEF0DC;
+}
+.tb-image{
+    width: 40px;
+    height: 40px;
+}
+
+.calender{
+    display: flex;
+    flex-direction: row;
+    width: 19rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendar .fa-calendar-days {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.react-calendar {
+  background-color: #FEF0DC;
+  z-index: 2;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%),translateY(-50%);
+}
+
+
+.calendar .react-calendar {
+  display: block;
+}
+
+
+.calendar .react-calendar .react-calendar__tile--active {
+  background-color: #3498db;
+  color: white;
+}
+
+
+.calendar .selected-date-range {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
