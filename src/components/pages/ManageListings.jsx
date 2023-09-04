@@ -6,29 +6,30 @@ import toast from "react-hot-toast";
 import Axios from './Axios';
 import Sidebar from "../Layout/Sidebar.jsx";
 const ManageListings = () => {
-  const[categories,setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [refresh, setrefresh] = useState(false);
-  const[categoryDetails, setCategoryDetails] = useState({
-    name:"", 
-    description:"",
+  const [categoryDetails, setCategoryDetails] = useState({
+    name: "",
+    description: "",
   });
-  const getCategories =  async(e) =>{
+  const getCategories = async (e) => {
     // e.preventDefault();
-    const {data} = await Axios.post("/product/categories"); 
-    console.log("success in the gc"); 
-    console.log("data created" , data)
-   
+    const { data } = await Axios.post("/product/categories");
+    console.log("success in the gc");
+    console.log("data created", data.categories)
+    setCategories(data.categories)
   }
   
-  useEffect(()=>{
+  
+  useEffect(() => {
     getCategories();
-  },[refresh]) ; 
+  }, [refresh]);
 
-  function changeHandler(e){
-     const {name, value} = e.target
-     setCategoryDetails({
-      ...categoryDetails , 
-      [name]:value
+  function changeHandler(e) {
+    const { name, value } = e.target
+    setCategoryDetails({
+      ...categoryDetails,
+      [name]: value
     })
     console.log("inside the function");
     console.log(categoryDetails)
@@ -36,9 +37,9 @@ const ManageListings = () => {
 
   //get all categories
 
-  
+
   //update category
-  
+
 
   return (
     <>
@@ -57,6 +58,7 @@ const ManageListings = () => {
                 </h1>
               <div className="flex w-full h-72 flex-col m-2 justify-start ">
                 <CategoryForm category={categoryDetails}  change ={changeHandler} refresh={refresh} setrefresh={setrefresh} setCategoryDetails ={setCategoryDetails}/>
+                <CategoryForm category={categoryDetails} change={changeHandler} refresh={refresh} setrefresh={setrefresh} setCategoryDetails={setCategoryDetails} />
               </div>
               <div className="h-96 overflow-y-auto m-2 w-full p-2">
                 <table className="table">
@@ -74,13 +76,13 @@ const ManageListings = () => {
                           <td>
                             <button
                               className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-2"
-                            
+
                             >
                               EDIT
                             </button>
                             <button
                               className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400]"
-                             
+
                             >
                               DELETE
                             </button>
@@ -96,7 +98,7 @@ const ManageListings = () => {
               </Modal> */}
             </div>
           </div>
-          </div>
+        </div>
       </div>
     </>
   );

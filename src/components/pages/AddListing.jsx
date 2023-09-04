@@ -10,6 +10,35 @@ export default function AddListing() {
   const [images, setImages] = useState([]);
   const [productId, setProductId] = useState("");
   const [categories, setCategories] = useState([]);
+  const [image,setImage] = useState(null); 
+  const handleImageChange = (e) => {
+    console.log("inside the fxnsd");
+    const file = e.target.files[0];
+    console.log("this is file", file);
+    setImage(file);
+    console.log(image,"inad")
+  };
+  const handleUpload = async () => {
+    const formData = new FormData();
+    console.log(image);
+    formData.append('productImage',image);
+    formData.append('productId', productId); 
+    formData.append('color',"red"); 
+
+    try {
+      const response = await Axios.post('/product/add-Image', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('Image successfully uploaded:', response.data);
+    } catch (error) {
+      console.error('There was an error uploading the image:', error);
+    
+    }
+  };
+
+
   const [product, setProduct] = useState({
     title: "",
     description: "",
@@ -331,6 +360,10 @@ export default function AddListing() {
               id="fileInput"
               accept="image/*"
               className="hidden"
+              // onChange={handleImageChange}
+              onChange = {()=>{
+                console.log("cjange");
+              }}
               multiple
             />
           </div>
@@ -350,7 +383,7 @@ export default function AddListing() {
               className="border border-black rounded-md py-2 px-3"
               placeholder="QUANTITY"
             />
-            <button className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-auto">
+            <button className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-auto" onClick={handleUpload}>
               Upload
             </button>
           </div>
@@ -378,7 +411,7 @@ export default function AddListing() {
               className="border border-black rounded-md py-2 px-3"
               placeholder="COLOR"
             />
-            <button className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-auto">
+            <button className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-auto" onClick={handleUpload} >
               Upload
             </button>
           </div>
