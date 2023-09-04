@@ -21,19 +21,19 @@ const CategoryForm = ({change , category , refresh , setrefresh, setCategoryDeta
   return (
     <>
       <div className="flex flex-col justify-between items-center ">
-        <div className="flex items-center justify-center p-2 h-16">
+        <div className="flex flex-col h-56 items-center justify-center p-2">
           <input
             type="text"
-            className="form-control"
-            placeholder="ENTER NEW NAME"
+            className="form-control m-3"
+            placeholder="CATEGORY NAME"
             value={name}
             name ="name"
             onChange={change}
           />
-            <input
+            <textarea
             type="text"
-            className="form-control p-10"
-            placeholder="ENTER description"
+            className="form-control m-3 h-36"
+            placeholder="CATEGORY DESCRIPTION"
             value={description}
             name ="description"
             onChange={change}

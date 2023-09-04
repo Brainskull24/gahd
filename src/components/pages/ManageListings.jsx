@@ -19,10 +19,7 @@ const ManageListings = () => {
     console.log("data created" , data)
    
   }
-  useEffect(()=>{
-    getCategories();
-
-  })
+  
   useEffect(()=>{
     getCategories();
   },[refresh]) ; 
