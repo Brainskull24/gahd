@@ -4,23 +4,13 @@ import Sidebar from "../Layout/Sidebar.jsx";
 import PhotoIcon from "../../assets/photos.svg";
 
 const Blogs = () => {
-  
   const [Blog,setBlog] = useState("");
-  
-  const fileInputRef = useRef(null);
-  // console.log(fileInputRef.current.value);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBlog({
       ...Blog,
       [name]: value,
     });
-  };
-  const handleUploadButtonClick = () => {
-    console.log(fileInputRef.current.value);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
   };
   return (
     <>
@@ -57,7 +47,7 @@ const Blogs = () => {
                     }`}
                 
                   >
-                    {(
+                   
                       <label
                         htmlFor="fileInput"
                         className="cursor-pointer h-[200px] w-[200px] "
@@ -70,28 +60,9 @@ const Blogs = () => {
                           <span className="text-sm">Max size: 100MB</span>
                         </div>
                       </label>
-                    )(
-                      // <div className="h-full overflow-x-auto">
-                      //   {files.map((file, index) => (
-                      //     <div key={index} className="my-1">
-                      //       <img
-                      //         src={URL.createObjectURL(file)}
-                      //         alt="uploaded"
-                      //       />
-                      //       <button
-                      //         type="button"
-                      //         className="ml-2 bg-red-500 text-white p-1 rounded-full"
-                      //       >
-                      //         X
-                      //       </button>
-                      //     </div>
-                      //   ))}
-                      // </div>
-                    )}
                     <input
                       type="file"
                       id="fileInput"
-                      ref={fileInputRef}
                       accept="image/*"
                       className="hidden"
                       multiple

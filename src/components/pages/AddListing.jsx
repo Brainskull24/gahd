@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-
 import { NavLink } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Select } from "antd";
-import axios from "axios";
-import Axios  from "./Axios";
-const { Option } = Select;
+import Axios from "./Axios";
+import PhotoIcon from "../../assets/photos.svg";
+import VideoIcon from "../../assets/videos.svg"
 
 export default function AddListing() {
   const [images, setImages] = useState([]);
   const [productId, setProductId] = useState("");
-  const[categories,setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState({
     title: "",
     description: "",
@@ -25,14 +24,14 @@ export default function AddListing() {
     work: "",
     sku: "",
     price: "",
-  })
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({
       ...product,
-      [name]: value
-    })
-  }
+      [name]: value,
+    });
+  };
   const getAllCategory = async () => {
     try {
       const { data } = await Axios.post("/product/categories");
@@ -50,17 +49,16 @@ export default function AddListing() {
   }, []);
   const handleCreate = async (e) => {
     if (product) {
-      const { data } = await Axios.post("/product/add-product",{
-        ...product
+      const { data } = await Axios.post("/product/add-product", {
+        ...product,
       });
       toast.success("Product created successfully");
       console.log("successsß");
       setProductId(data.newListing._id);
-    } 
-    else {
-        toast.error("Error in creating product");
-      }
+    } else {
+      toast.error("Error in creating product");
     }
+  };
   return (
     <div className="w-full">
       <div
@@ -113,12 +111,12 @@ export default function AddListing() {
               type="text"
               name="title"
               value={product.title}
-              onChange = {handleChange}
+              onChange={handleChange}
               className="border border-gray-400 rounded-[5px] py-2 px-3 w-full"
             />
           </div>
           <div className="grid grid-cols-2 gap-2">
-            {/* <div className="flex flex-col gap-2 items-start">
+            <div className="flex flex-col gap-2 items-start">
               <label htmlFor="category" className="font-[400]">
                 Category: *
               </label>
@@ -128,17 +126,17 @@ export default function AddListing() {
                 size="medium"
                 showSearch
                 className="border border-gray-400 rounded-[5px] py-1.5 px-1 w-full bg-white text-black"
-                onChange={(value) => {
-                  setCategory(value);
-                }}
+                // onChange={(value) => {
+                //   setCategory(value);
+                // }}
               >
-                {categories?.map((c) => (
+                {/* {categories?.map((c) => (
                   <Option key={c._id} value={c._id}>
                     {c.name}
                   </Option>
-                ))}
+                ))} */}
               </Select>
-            </div> */}
+            </div>
             <div className="flex flex-col gap-2 items-start">
               <label htmlFor="occasion" className="font-[400]">
                 Occasion: *
@@ -147,7 +145,7 @@ export default function AddListing() {
                 type="text"
                 name="ocassion"
                 value={product.ocassion}
-              onChange = {handleChange}
+                onChange={handleChange}
                 className="border border-gray-400 rounded-[5px] py-2 px-3 w-full"
               />
             </div>
@@ -160,7 +158,7 @@ export default function AddListing() {
               type="text"
               name="collectionName"
               value={product.collectionName}
-              onChange = {handleChange}
+              onChange={handleChange}
               className="border border-gray-400 rounded-[5px] py-2 px-3 w-full"
             />
           </div>
@@ -172,7 +170,7 @@ export default function AddListing() {
               type="text"
               name="description"
               value={product.description}
-              onChange = {handleChange}
+              onChange={handleChange}
               className="border block w-full h-200 border-gray-400 rounded-[5px] py-2 px-3 h-200"
               rows={4}
             />
@@ -187,10 +185,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="MATERIAL"
-                  name = "material"
+                  name="material"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
                   value={product.material}
-              onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -204,10 +202,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="FABRIC"
-                  name = "fabric"
+                  name="fabric"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
                   value={product.fabric}
-              onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -220,10 +218,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="COLOR"
-                  name = "color"
+                  name="color"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
                   value={product.color}
-              onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -236,10 +234,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="CUSTOMIZATION"
-                  name = "customization"
+                  name="customization"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
                   value={product.customization}
-              onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -252,10 +250,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="Tags"
-                  name = "tags"
+                  name="tags"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
                   value={product.tags}
-              onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -268,10 +266,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="WORK"
-                  name = "work"
+                  name="work"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
                   value={product.work}
-              onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -284,10 +282,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="SKU"
-                  name = "sku"
+                  name="sku"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
                   value={product.sku}
-              onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -300,10 +298,10 @@ export default function AddListing() {
                   type="Number"
                   id="input"
                   placeholder="price"
-                  name = "price"
+                  name="price"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
                   value={product.price}
-              onChange = {handleChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -316,10 +314,75 @@ export default function AddListing() {
           ADD
         </button>
       </div>
-      <div
-        className='className="py-2 px-6 mx-16 my-2 mt-6 text-[18px] border border-black rounded-md"
-    style={{ fontFamily: "Roboto, sans-serif" }}'
-      >
+      <div className="py-2 px-6 flex flex-col mx-16 my-2 mt-6 text-[18px] border border-black rounded-md">
+        <span className="text-xl font-bold">Photos & Videos</span>
+        <span className="text-sm">Add upto 10 photos to show your product</span>
+        <div className="flex gap-8 w-fit m-2">
+          <div className="h-[240px] w-[200px] border border-black border-solid rounded-md">
+            <label htmlFor="fileInput" className="cursor-pointer">
+            <div className="h-[240px] w-[200px] flex flex-col items-center justify-center">
+              <img src={PhotoIcon} alt="image" />
+              <span className="text-lg">Add a Photo</span>
+              <span className="text-sm">Max size: 100MB</span>
+            </div>
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              className="hidden"
+              multiple
+            />
+          </div>
+          <div className="flex flex-col gap-4 mt-8 items-start">
+            <input
+              type="text"
+              className="border border-black rounded-md py-2 px-3"
+              placeholder="COLOR"
+            />
+            <input
+              type="text"
+              className="border border-black rounded-md py-2 px-3"
+              placeholder="ENTER DETAILS"
+            />
+            <input
+              type="text"
+              className="border border-black rounded-md py-2 px-3"
+              placeholder="QUANTITY"
+            />
+            <button className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-auto">
+              Upload
+            </button>
+          </div>
+        </div>
+        <div className="flex gap-8 w-fit m-2">
+          <div className="h-[240px] w-[200px] border border-black border-solid rounded-md ">
+          <label htmlFor="fileInput" className="cursor-pointer">
+            <div className="h-[240px] w-[200px] flex flex-col items-center justify-center">
+              <img src={VideoIcon} alt="image" />
+              <span className="text-lg font-semibold">Add a VideoIcon</span>
+              <span className="text-sm">Max size: 100MB</span>
+            </div>
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              accept="video/*"
+              className="hidden"
+              multiple
+            />
+          </div>
+          <div className="flex flex-col gap-4 mt-8 items-start">
+            <input
+              type="text"
+              className="border border-black rounded-md py-2 px-3"
+              placeholder="COLOR"
+            />
+            <button className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-auto">
+              Upload
+            </button>
+          </div>
+        </div>
       </div>
       <div className="flex justify-center items-center m-3">
         <button className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-auto">
