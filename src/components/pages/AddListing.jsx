@@ -1,42 +1,43 @@
 import React, { useState, useEffect } from "react";
-import Videos from "./Videos";
-import Photos from "./Photos";
+
 import { NavLink } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Select } from "antd";
 import axios from "axios";
+import Axios  from "./Axios";
 const { Option } = Select;
 
 export default function AddListing() {
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState("");
-  const [customization, setCustomization] = useState("");
-  const [title, setTitle] = useState("");
-  const [ocassion, setOcassion] = useState("");
-  const [collectionName, setCollection] = useState("");
-  const [description, setDescription] = useState("");
-  const [Price, setPrice] = useState("");
-  const [sku, setSku] = useState("");
-  const [material, setMaterial] = useState("");
-  const [fabric, setFabric] = useState("");
-  const [color, setColor] = useState("");
-  const [work, setWork] = useState("");
-  const [tags, setTags] = useState("");
-  // const [tagsArray, setTagsArray] = useState([]);
-
-  // const handleTagsChange = (event) => {
-  //   const tagsValue = event.target.value || "";
-  //   setTags(tagsValue);
-  //   const Tags = event.target.value.split(",").map((tag) => tag.trim());
-  //   setTagsArray(Tags);
-  // };
-
+  const [images, setImages] = useState([]);
+  const [productId, setProductId] = useState("");
+  const[categories,setCategories] = useState([]);
+  const [product, setProduct] = useState({
+    title: "",
+    description: "",
+    category: "",
+    ocassion: "",
+    collectionName: "",
+    material: "",
+    fabric: "",
+    tags: "",
+    color: "",
+    customization: [],
+    work: "",
+    sku: "",
+    price: "",
+  })
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProduct({
+      ...product,
+      [name]: value
+    })
+  }
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:4000/api/v1/category/allcategory"
-      );
+      const { data } = await Axios.post("/product/categories");
       if (data?.success) {
+        console.log(data);
         setCategories(data?.category);
       }
     } catch (error) {
@@ -48,37 +49,18 @@ export default function AddListing() {
     getAllCategory();
   }, []);
   const handleCreate = async (e) => {
-    e.preventDefault();
-    try {
-      const productData = new FormData();
-      productData.append("Price", Price);
-      productData.append("title", title);
-      productData.append("description", description);
-      productData.append("color", color);
-      productData.append("category", category);
-      productData.append("collectionName", collectionName);
-      productData.append("material", material);
-      productData.append("fabric", fabric);
-      productData.append("work", work);
-      productData.append("sku", sku);
-      productData.append("customization", customization);
-      productData.append("ocassion", ocassion);
-      productData.append("tags", tags);
-      // productData.append("tagsArray",tagsArray);
-      const { data } = await axios.post(
-        "http://localhost:4000/api/v1/product/addlisting",
-        productData
-      );
-      if (data?.success) {
-        toast.error(data?.message);
-      } else {
-        toast.success("Product Created Successfully");
+    if (product) {
+      const { data } = await Axios.post("/product/add-product",{
+        ...product
+      });
+      toast.success("Product created successfully");
+      console.log("successsß");
+      setProductId(data.newListing._id);
+    } 
+    else {
+        toast.error("Error in creating product");
       }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong while creating the product");
     }
-  };
   return (
     <div className="w-full">
       <div
@@ -130,15 +112,13 @@ export default function AddListing() {
             <input
               type="text"
               name="title"
-              value={title}
-              onChange={(event) => {
-                setTitle(event.target.value);
-              }}
+              value={product.title}
+              onChange = {handleChange}
               className="border border-gray-400 rounded-[5px] py-2 px-3 w-full"
             />
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <div className="flex flex-col gap-2 items-start">
+            {/* <div className="flex flex-col gap-2 items-start">
               <label htmlFor="category" className="font-[400]">
                 Category: *
               </label>
@@ -158,7 +138,7 @@ export default function AddListing() {
                   </Option>
                 ))}
               </Select>
-            </div>
+            </div> */}
             <div className="flex flex-col gap-2 items-start">
               <label htmlFor="occasion" className="font-[400]">
                 Occasion: *
@@ -166,10 +146,8 @@ export default function AddListing() {
               <input
                 type="text"
                 name="ocassion"
-                value={ocassion}
-                onChange={(event) => {
-                  setOcassion(event.target.value);
-                }}
+                value={product.ocassion}
+              onChange = {handleChange}
                 className="border border-gray-400 rounded-[5px] py-2 px-3 w-full"
               />
             </div>
@@ -181,10 +159,8 @@ export default function AddListing() {
             <input
               type="text"
               name="collectionName"
-              value={collectionName}
-              onChange={(event) => {
-                setCollection(event.target.value);
-              }}
+              value={product.collectionName}
+              onChange = {handleChange}
               className="border border-gray-400 rounded-[5px] py-2 px-3 w-full"
             />
           </div>
@@ -195,10 +171,8 @@ export default function AddListing() {
             <textarea
               type="text"
               name="description"
-              value={description}
-              onChange={(event) => {
-                setDescription(event.target.value);
-              }}
+              value={product.description}
+              onChange = {handleChange}
               className="border block w-full h-200 border-gray-400 rounded-[5px] py-2 px-3 h-200"
               rows={4}
             />
@@ -213,11 +187,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="MATERIAL"
+                  name = "material"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
-                  value={material}
-                  onChange={(event) => {
-                    setMaterial(event.target.value);
-                  }}
+                  value={product.material}
+              onChange = {handleChange}
                 />
               </div>
             </div>
@@ -231,11 +204,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="FABRIC"
+                  name = "fabric"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
-                  value={fabric}
-                  onChange={(event) => {
-                    setFabric(event.target.value);
-                  }}
+                  value={product.fabric}
+              onChange = {handleChange}
                 />
               </div>
             </div>
@@ -248,11 +220,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="COLOR"
+                  name = "color"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
-                  value={color}
-                  onChange={(event) => {
-                    setColor(event.target.value);
-                  }}
+                  value={product.color}
+              onChange = {handleChange}
                 />
               </div>
             </div>
@@ -265,11 +236,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="CUSTOMIZATION"
+                  name = "customization"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
-                  value={customization}
-                  onChange={(event) => {
-                    setCustomization(event.target.value);
-                  }}
+                  value={product.customization}
+              onChange = {handleChange}
                 />
               </div>
             </div>
@@ -282,11 +252,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="Tags"
+                  name = "tags"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
-                  value={tags}
-                  onChange={(event) => {
-                    setTags(event.target.value);
-                  }}
+                  value={product.tags}
+              onChange = {handleChange}
                 />
               </div>
             </div>
@@ -299,11 +268,10 @@ export default function AddListing() {
                   type="text"
                   id="input"
                   placeholder="WORK"
+                  name = "work"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
-                  value={work}
-                  onChange={(event) => {
-                    setWork(event.target.value);
-                  }}
+                  value={product.work}
+              onChange = {handleChange}
                 />
               </div>
             </div>
@@ -315,29 +283,27 @@ export default function AddListing() {
                 <input
                   type="text"
                   id="input"
-                  placeholder="MATERIAL"
+                  placeholder="SKU"
+                  name = "sku"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
-                  value={material}
-                  onChange={(event) => {
-                    setSku(event.target.value);
-                  }}
+                  value={product.sku}
+              onChange = {handleChange}
                 />
               </div>
             </div>
             <div>
               <label htmlFor="input" className="block font-[400]">
-                Price:
+                price:
               </label>
               <div className="flex">
                 <input
                   type="Number"
                   id="input"
-                  placeholder="Price"
+                  placeholder="price"
+                  name = "price"
                   className="border border-gray-400 rounded-l-md py-2 px-3 flex-1"
-                  value={Price}
-                  onChange={(event) => {
-                    setPrice(event.target.value);
-                  }}
+                  value={product.price}
+              onChange = {handleChange}
                 />
               </div>
             </div>
@@ -354,11 +320,6 @@ export default function AddListing() {
         className='className="py-2 px-6 mx-16 my-2 mt-6 text-[18px] border border-black rounded-md"
     style={{ fontFamily: "Roboto, sans-serif" }}'
       >
-        <div className="text-black font-[400] text-[22px] mt-2">
-          Listing Details
-        </div>
-        <Photos />
-        <Videos />
       </div>
       <div className="flex justify-center items-center m-3">
         <button className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400] mx-auto">

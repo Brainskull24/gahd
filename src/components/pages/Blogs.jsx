@@ -2,20 +2,11 @@ import React, { useRef, useState } from "react";
 import "../../css/Blogs.css";
 import Sidebar from "../Layout/Sidebar.jsx";
 import PhotoIcon from "../../assets/photos.svg";
-import useFileUpload from "./UseFileUpload";
+
 const Blogs = () => {
-  const [uploadedImages, setUploadedImages] = useState([]);
+  
   const [Blog,setBlog] = useState("");
-  const {
-    isDragging,
-    files,
-    handleDragEnter,
-    handleDragLeave,
-    handleDragOver,
-    handleDrop,
-    handleFileInputChange,
-    removeFile,
-  } = useFileUpload();
+  
   const fileInputRef = useRef(null);
   // console.log(fileInputRef.current.value);
   const handleChange = (e) => {
@@ -26,7 +17,6 @@ const Blogs = () => {
     });
   };
   const handleUploadButtonClick = () => {
-    setUploadedImages([...uploadedImages, ...files]);
     console.log(fileInputRef.current.value);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -63,14 +53,11 @@ const Blogs = () => {
                 <div className="flex flex-col m-2 justify-center items-center">
                   <div
                     className={`h-[200px] w-[200px] border border-black border-solid rounded-md ${
-                      isDragging ? "bg-gray-100" : "bg-white"
+                       "bg-gray-100"
                     }`}
-                    onDragEnter={handleDragEnter}
-                    onDragLeave={handleDragLeave}
-                    onDragOver={handleDragOver}
-                    onDrop={handleDrop}
+                
                   >
-                    {files.length === 0 ? (
+                    {(
                       <label
                         htmlFor="fileInput"
                         className="cursor-pointer h-[200px] w-[200px] "
@@ -83,24 +70,23 @@ const Blogs = () => {
                           <span className="text-sm">Max size: 100MB</span>
                         </div>
                       </label>
-                    ) : (
-                      <div className="h-full overflow-x-auto">
-                        {files.map((file, index) => (
-                          <div key={index} className="my-1">
-                            <img
-                              src={URL.createObjectURL(file)}
-                              alt="uploaded"
-                            />
-                            <button
-                              type="button"
-                              className="ml-2 bg-red-500 text-white p-1 rounded-full"
-                              onClick={() => removeFile(index)}
-                            >
-                              X
-                            </button>
-                          </div>
-                        ))}
-                      </div>
+                    )(
+                      // <div className="h-full overflow-x-auto">
+                      //   {files.map((file, index) => (
+                      //     <div key={index} className="my-1">
+                      //       <img
+                      //         src={URL.createObjectURL(file)}
+                      //         alt="uploaded"
+                      //       />
+                      //       <button
+                      //         type="button"
+                      //         className="ml-2 bg-red-500 text-white p-1 rounded-full"
+                      //       >
+                      //         X
+                      //       </button>
+                      //     </div>
+                      //   ))}
+                      // </div>
                     )}
                     <input
                       type="file"
@@ -109,7 +95,7 @@ const Blogs = () => {
                       accept="image/*"
                       className="hidden"
                       multiple
-                      onChange={handleFileInputChange}
+                    
                     />
                   </div>
                   <div>
