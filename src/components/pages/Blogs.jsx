@@ -26,15 +26,16 @@ const Blogs = () => {
             <div className="form-items flex justify-between items-start pl-10 pr-10 h-20 mt-2.5 ">
               <span>Title:*</span>
               <input
-                className="w-4/5 bg-[#FEF0DC] border-1 border-black h-10 rounded-md
+                className="w-4/5 border-1 border-black h-10 rounded-md p-3
               "
               name = "title"
               onChange={handleChange}
               />
             </div>
-            <div className="form-items" style={{ height: "15rem" }}>
+            <div className="form-items flex justify-between items-start pl-10 h-96 pr-10 mt-2.5">
               <span>Description:*</span>
-              <textarea style={{ maxHeight: "13rem", minHeight: "13rem"}} name = "description"
+              <textarea name = "description" 
+              className="h-3/4 p-3"
               onChange={handleChange} />
             </div>
             <div className="flex flex-row justify-between items-start w-full pl-2.5 pr-2.5 h-80 mt-2">
@@ -42,9 +43,7 @@ const Blogs = () => {
               <div className="flex flex-row w-4/5 justify-between items-start height-full ml-2.5 mr-2.5">
                 <div className="flex flex-col m-2 justify-center items-center">
                   <div
-                    className={`h-[200px] w-[200px] border border-black border-solid rounded-md ${
-                       "bg-gray-100"
-                    }`}
+                    className="h-[200px] w-[200px] border border-black border-solid rounded-md"
                 
                   >
                    

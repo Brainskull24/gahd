@@ -1,4 +1,5 @@
 import "../../css/Navbar.css";
+// import fevicon 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -12,7 +13,7 @@ function Navbar() {
     <>
       <div className="navbar-main">
         <div className="nav-logo">
-          <a>LOGO</a>
+          <img src=""></img>
         </div>
         <div className="nav-itemss">
           <a className="nav-fontss">

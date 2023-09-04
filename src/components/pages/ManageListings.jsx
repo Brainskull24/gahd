@@ -51,14 +51,14 @@ const ManageListings = () => {
             <span>Manage Listings</span>
           </div>
           <div className="list-items">
-            <div className="flex w-full border-black border-2 p-3 justify-between">
-              <div className="flex flex-col w-1/4 m-2 justify-start ">
+            <div className="flex flex-col w-full border-black border-2 p-3 justify-between">
                 <h1 className="flex font-bold items-start justify-center">
                   MANAGE CATEGORY
                 </h1>
+              <div className="flex w-full h-72 flex-col m-2 justify-start ">
                 <CategoryForm category={categoryDetails}  change ={changeHandler} refresh={refresh} setrefresh={setrefresh} setCategoryDetails ={setCategoryDetails}/>
               </div>
-              <div className="w-2/3 p-2 h-96 overflow-y-auto">
+              <div className="h-96 overflow-y-auto m-2 w-full p-2">
                 <table className="table">
                   <thead>
                     <tr>

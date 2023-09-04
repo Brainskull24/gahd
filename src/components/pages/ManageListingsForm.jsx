@@ -20,11 +20,10 @@ const CategoryForm = ({change , category , refresh , setrefresh, setCategoryDeta
   }
   return (
     <>
-      <div className="flex flex-col justify-between items-center ">
-        <div className="flex flex-col h-56 items-center justify-center p-2">
+        <div className="flex flex-col h-56 w-full items-center justify-center p-2">
           <input
             type="text"
-            className="form-control m-3"
+            className="form-control h-12"
             placeholder="CATEGORY NAME"
             value={name}
             name ="name"
@@ -32,7 +31,7 @@ const CategoryForm = ({change , category , refresh , setrefresh, setCategoryDeta
           />
             <textarea
             type="text"
-            className="form-control m-3 h-36"
+            className="form-control mt-3 h-48 "
             placeholder="CATEGORY DESCRIPTION"
             value={description}
             name ="description"
@@ -41,10 +40,9 @@ const CategoryForm = ({change , category , refresh , setrefresh, setCategoryDeta
         </div>
         <button
           type="submit"
-          className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400]" onClick={createCategory} >
+          className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white w-20 flex justify-center m-auto items-center text-[18px] font-[400]" onClick={createCategory} >
           ADD
         </button>
-      </div>
     </>
   );
 };
