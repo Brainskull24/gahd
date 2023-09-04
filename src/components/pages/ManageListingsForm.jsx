@@ -1,5 +1,23 @@
 import React from "react";
-const CategoryForm = ({ handleSubmit, value, setValue }) => {
+import Axios from './Axios';
+const CategoryForm = ({change , category , refresh , setrefresh, setCategoryDetails}) => {
+  const name = category.name ; 
+  const description = category.description;
+  const createCategory = async(e)=>{
+    e.preventDefault();
+    const {data} = await Axios.post("/product/add-category",{
+       ...category
+
+    }); 
+    
+    setrefresh(!refresh); 
+    console.log("success"); 
+  setCategoryDetails({
+    name:"", 
+    description:""
+  })
+    console.log("data created" , data)
+  }
   return (
     <>
       <div className="flex flex-col justify-between items-center ">
@@ -8,15 +26,22 @@ const CategoryForm = ({ handleSubmit, value, setValue }) => {
             type="text"
             className="form-control"
             placeholder="ENTER NEW NAME"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
+            value={name}
+            name ="name"
+            onChange={change}
+          />
+            <input
+            type="text"
+            className="form-control p-10"
+            placeholder="ENTER description"
+            value={description}
+            name ="description"
+            onChange={change}
           />
         </div>
         <button
           type="submit"
-          className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400]"
-          onClick={handleSubmit}
-        >
+          className="border border-black py-2 px-3 rounded-[5px] bg-[#6D282C] text-white text-[18px] font-[400]" onClick={createCategory} >
           ADD
         </button>
       </div>
