@@ -2,9 +2,16 @@ import React, { useRef, useState } from "react";
 import "../../css/Blogs.css";
 import Sidebar from "../Layout/Sidebar.jsx";
 import PhotoIcon from "../../assets/photos.svg";
+import Axios from "./Axios";
 
 const Blogs = () => {
-  const [Blog,setBlog] = useState("");
+  const [Blog,setBlog] = useState({
+       title:"", 
+       content:"", 
+       author:"", 
+       createdAt:""
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBlog({
@@ -12,6 +19,14 @@ const Blogs = () => {
       [name]: value,
     });
   };
+  async function  uploadBlog(e){
+       e.preventDefault();
+       const {data} = await Axios.post("/blogs/createBlog",{
+        ...Blog
+       }); 
+       console.log(data);
+
+  }
   return (
     <>
       <div className="dash-main">
@@ -33,8 +48,8 @@ const Blogs = () => {
               />
             </div>
             <div className="form-items flex justify-between items-start pl-10 h-96 pr-10 mt-2.5">
-              <span>Description:*</span>
-              <textarea name = "description" 
+              <span>content:*</span>
+              <textarea name = "content" 
               className="h-3/4 p-3"
               onChange={handleChange} />
             </div>
@@ -75,18 +90,18 @@ const Blogs = () => {
                 <div className="flex flex-col justify-evenly items-center h-40 w-80">
                   <div className="flex justify-between items-center w-full">
                     <span>Writer:</span>
-                    <input className="w-4/5 bg-[#FEF0DC] border-1 border-black h-10 rounded-md pl-2" />
+                    <input className="w-4/5 bg-[#FEF0DC] border-1 border-black h-10 rounded-md pl-2" name="author" />
                   </div>
                   <div className="flex justify-between items-center w-full">
                     <span>Date:</span>
-                    <input className="w-4/5 bg-[#FEF0DC] border-1 border-black h-10 rounded-md pl-2" />
+                    <input className="w-4/5 bg-[#FEF0DC] border-1 border-black h-10 rounded-md pl-2" name = "createdAt" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="flex flex-col items-center m-4">
-            <button className="border-1 border-black rounded-md bg-[#751818] h-8 p-1 w-max text-white">
+            <button className="border-1 border-black rounded-md bg-[#751818] h-8 p-1 w-max text-white" onClick={uploadBlog} >
               Submit
             </button>
           </div>

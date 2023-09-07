@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../Layout/Sidebar.jsx";
 import "../../css/Listings.css";
 import { NavLink } from "react-router-dom";
+import Axios from './Axios.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDownload,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
+
 const Listings = () => {
-  return (
+  const [allproducts , setProducts] = useState([]); 
+ const arr =[1,3,4,5,6]
+  async function getProducts(){
+        const {data} = await Axios.get("product/all-products"); 
+        // setProducts(data.products, "g");  
+        // console.log(data);
+        setProducts(data.products[0]);
+      }
+useEffect(()=>{
+    getProducts();
+    console.log("state",allproducts)
+    
+},[])
+   
+   return (
     <>
       <div className="dash-main">
         <div className="sidebar-main">
@@ -64,7 +80,20 @@ const Listings = () => {
                 <th className="text-black text-lg">Total Sales</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {allproducts.map((product, index) => (
+                <tr key={index}>
+                  <td className="text-black text-md">{product.sku}</td>
+                  <td className="text-black text-md">{product.collection}</td>
+                  <td className="text-black text-md">{product.ocassion}</td>
+                  <td className="text-black text-md">{product.tags}</td>
+                  <td className="text-black text-md">{product.amount}</td>
+                  <td className="text-black text-md">{product.amount}</td>
+                  <td className="text-black text-md">{1200}pcs</td>
+                  {/* Add more cells as needed */}
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>

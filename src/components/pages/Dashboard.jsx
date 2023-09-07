@@ -1,5 +1,5 @@
 import Sidebar from "../Layout/Sidebar.jsx";
-import React from "react";
+import React, { useEffect } from "react";
 import "../../css/Dashboard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,6 +9,7 @@ import {
 import { CCol, CCard, CCardBody, CCardTitle, CCardText } from "@coreui/react";
 import { useState } from "react";
 import Calendar from "react-calendar";
+import Axios from "./Axios.js";
 import "react-calendar/dist/Calendar.css";
 const Dashboard = () => {
   // const selectedDate = document.getElementsByClassName("selected-date");
@@ -17,6 +18,18 @@ const Dashboard = () => {
     new Date(),
     new Date(),
   ]);
+
+  const [allOrders, setOrders] = useState([]); 
+  const getOrders = async()=>{
+            
+    const {data} = await Axios.post("/order/get-orders");
+    console.log(" fetched data is ", data.orders); 
+    setOrders(data.orders);
+  } 
+  
+  useEffect(()=>{
+    getOrders();
+  }, [])
 
   const toggleCalendar = () => {
     setShowCalendar(!showCalendar);
@@ -51,7 +64,7 @@ const Dashboard = () => {
                 {selectedDateRange[0].toDateString()} -{" "}
                 {selectedDateRange[1].toDateString()}
               </span>
-}
+              }
             </div>{" "}
           </div>
           <div className="cards1">
@@ -158,39 +171,30 @@ const Dashboard = () => {
                   <th className="text-black text-lg">Payment</th>
                   <th className="text-black text-lg">Promo Code</th>
                 </tr>
+
               </thead>
-              <tbody>
-                {/* <tr>
-                  <th>
-                    <div className="tb-image">
-                      <img
-                        src="https://e7.pngegg.com/pngimages/402/613/png-clipart-sari-silk-kanchipuram-zari-pink-saree-model-purple-blue.png"
-                        alt=""
-                      />
-                    </div>
-                  </th>
-                  <td>
-                    <div className="flex items-center space-x-3">
-                      <div>
-                        <div className="font-bold">ZROX89</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    #25421
-                    <br />
-                  </td>
-                  <td>July 23rd 2023</td>
-                  <td>$200.00</td>
-                  <td>Delivered</td>
-                  <th>
-                    <button className="">Magenta</button>
-                  </th>
-                  <td>Stitched</td>
-                  <td>Paypal</td>
-                  <td>UNIQ200</td>
-                </tr> */}
-              </tbody>
+
+                <tbody>
+                  {
+                  allOrders.map((order, index) => 
+                    { return <tr key={index}>
+                      {console.log(order.products)}
+                      <td className="text-black text-md">
+                      <img src={ `${order.products.length>0?order.products[0].url :"NAN"}`
+                      } alt="loading" />
+                      </td>
+                      <td className="text-black text-md">{order.sku}</td>
+                      <td className="text-black text-md">{order._id}</td>
+                      <td className="text-black text-md">{order.date}</td>
+                      <td className="text-black text-md">{order.amount}</td>
+                      <td className="text-black text-md">{order.status}</td>
+                      <td className="text-black text-md">{`${order.products.length>0?order.products[0].color :"NAN"}`}</td>
+                      <td className="text-black text-md">{`${order.products.length>0?order.products[0].customization :"NAN"}`}</td>
+                      <td className="text-black text-md">{1200}pcs</td>
+                     </tr> 
+                    })
+                  }
+                </tbody>
             </table>
           </div>
         </div>

@@ -10,34 +10,29 @@ export default function AddListing() {
   const [images, setImages] = useState([]);
   const [productId, setProductId] = useState("");
   const [categories, setCategories] = useState([]);
-  const [image,setImage] = useState(null); 
+  const [files , setFiles] = useState("");
+  const [image,setImage] = useState(""); 
   const handleImageChange = (e) => {
     console.log("inside the fxnsd");
     const file = e.target.files[0];
-    console.log("this is file", file);
-    setImage(file);
-    console.log(image,"inad")
+    console.log(file);
+    setFiles(file);
   };
-  const handleUpload = async () => {
-    const formData = new FormData();
-    console.log(image);
-    formData.append('productImage',image);
-    formData.append('productId', productId); 
-    formData.append('color',"red"); 
-
-    try {
-      const response = await Axios.post('/product/add-Image', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('Image successfully uploaded:', response.data);
-    } catch (error) {
-      console.error('There was an error uploading the image:', error);
-    
-    }
-  };
-
+  
+   const handleUpload = async ()=>{
+        const reader = new FileReader(); 
+        reader.readAsDataURL(files); 
+        reader.onloadend = ()=>{
+          setImage(reader.result)
+        }
+      
+        const   {data} = await Axios.post("/product/add-image",{
+          image:image, 
+          productId:productId , 
+          color:"red"
+        })
+        console.log(data);
+   }
 
   const [product, setProduct] = useState({
     title: "",
@@ -357,14 +352,10 @@ export default function AddListing() {
             </label>
             <input
               type="file"
-              id="fileInput"
+              name = "photo"
               accept="image/*"
-              className="hidden"
-              // onChange={handleImageChange}
-              onChange = {()=>{
-                console.log("cjange");
-              }}
-              multiple
+              onChange={handleImageChange}
+              
             />
           </div>
           <div className="flex flex-col gap-4 mt-8 items-start">
