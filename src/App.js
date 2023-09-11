@@ -8,6 +8,7 @@ import Support from "./components/pages/Support.jsx";
 import Blogs from "./components/pages/Blogs.jsx";
 import AddListing from "./components/pages/AddListing.jsx";
 import ManageListings from "./components/pages/ManageListings.jsx";
+import ManageCustomization from "./components/pages/ManageCustomization.jsx";
 function App() {
   return (
     <>
@@ -21,11 +22,11 @@ function App() {
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/support" element={<Support />} />
           <Route path="/blogs" element={<Blogs />} />
-          <Route path="/manageall" element={<ManageListings />} />
+          <Route path="/manage-category" element={<ManageListings />} />
+          <Route path="/manage-customization" element={<ManageCustomization />} />
         </Routes>
       </Router>
     </>
   );
 }
-
 export default App;

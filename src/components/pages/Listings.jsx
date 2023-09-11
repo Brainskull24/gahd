@@ -21,9 +21,7 @@ const Listings = () => {
 useEffect(()=>{
     getProducts();
     console.log("state",allproducts)
-    
 },[])
-   
    return (
     <>
       <div className="dash-main">

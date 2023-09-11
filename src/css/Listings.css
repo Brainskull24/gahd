@@ -57,3 +57,37 @@
     margin: 0px 5px;
     font-size: small;
 }
+.preview{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 18px 7px;
+  }
+  .preview-item{
+    display: flex;
+    padding: 4px;
+  }
+  .preview-item h2{
+    font-weight: 800;
+    font-size: 1.1rem;
+
+  }
+  .preview-head{
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 19px;
+  }
+  .preview-gallery{
+     min-width: 20vw;
+     display:  flex;
+     flex-wrap: wrap;
+     gap: 2px;
+     overflow-y: scroll;
+
+  }
+  .preview-img{
+    width: 20%;
+    height: 40%;
+    padding: 3px;
+  }

@@ -41,7 +41,11 @@ const Sidebar = () => {
             </div>
             <div className="sidebar-items">
             <FontAwesomeIcon icon={faUser} />
-                <NavLink to="/manageall" className="side-links">Manage Listings</NavLink>
+                <NavLink to="/manage-category" className="side-links">Add category</NavLink>
+            </div>
+            <div className="sidebar-items">
+            <FontAwesomeIcon icon={faUser} />
+                <NavLink to="/manage-customization" className="side-links">Add Customization</NavLink>
             </div>
             <div className="sidebar-items">
             <FontAwesomeIcon icon={faUser} />
